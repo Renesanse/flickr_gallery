@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flickr_gallery/ui/images_grid.dart';
 import 'package:flickr_gallery/bloc/bloc.dart';
+import 'package:flickr_gallery/ui/grid_item.dart';
 
 main() => runApp(FlickrGallery());
 
@@ -13,6 +13,7 @@ class FlickrGallery extends StatefulWidget {
 class _FlickrGalleryState extends State<FlickrGallery>{
 
   var currentPage = 1;
+  var checknumber = 99;
 
   build(context){
     bloc.fetchAllImages(currentPage);
@@ -29,12 +30,23 @@ class _FlickrGalleryState extends State<FlickrGallery>{
             stream: bloc.images,
             builder: (context, snapshot) {
               if(snapshot.hasData){
-                return buildGrid(snapshot.data,
-                (){
-                  currentPage++;
-                  if(currentPage == 11) currentPage = 1;
-                  bloc.fetchAllImages(currentPage);
-                });
+                return SliverGrid(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2
+                    ),
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      return GridItem(snapshot.data[index]);
+                    },semanticIndexCallback: (_,num){
+                      if(num % checknumber == 0 && num != 0){
+                        checknumber *= 2;
+                        currentPage++;
+                        if(currentPage == 11) currentPage = 1;
+                        bloc.fetchAllImages(currentPage);
+                      }
+                    },
+                        childCount: snapshot.data.length
+                    )
+                );
               }else{
                 return SliverToBoxAdapter(
                   child: Center(
