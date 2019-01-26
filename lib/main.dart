@@ -32,7 +32,7 @@ class _FlickrGalleryState extends State<FlickrGallery>{
                 return buildGrid(snapshot.data,
                 (){
                   currentPage++;
-                  print(currentPage);
+                  if(currentPage == 11) currentPage = 1;
                   bloc.fetchAllImages(currentPage);
                 });
               }else{
