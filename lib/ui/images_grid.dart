@@ -10,7 +10,7 @@ buildGrid(values, action){
         return GridItem(values[index]);
       },
           semanticIndexCallback: (_,num){
-            num == 99 ? action() : null;
+            num%90 == 0 && num != 0 ? action() : null;
           },
         childCount: values.length
       )

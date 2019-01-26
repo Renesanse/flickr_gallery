@@ -1,10 +1,12 @@
 import 'package:flickr_gallery/provider/provider.dart';
 
 class Repository {
+  var list = [];
   final flickrAPIProvider = FlickrAPIProvider();
 
   getImages(page) async {
-    return await flickrAPIProvider.getLinks(page);
+    list.addAll(await flickrAPIProvider.getLinks(page));
+    return list;
   }
 
 }

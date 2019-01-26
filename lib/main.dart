@@ -31,10 +31,9 @@ class _FlickrGalleryState extends State<FlickrGallery>{
               if(snapshot.hasData){
                 return buildGrid(snapshot.data,
                 (){
-                  setState(() {
-                    currentPage++;
-                    bloc.fetchAllImages(currentPage);
-                  });
+                  currentPage++;
+                  print(currentPage);
+                  bloc.fetchAllImages(currentPage);
                 });
               }else{
                 return SliverToBoxAdapter(
