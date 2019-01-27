@@ -6,7 +6,6 @@ class Repository {
 
   getImages(page) async {
     list.addAll(await flickrAPIProvider.getLinks(page));
-    print(list.length);
     return list;
   }
 

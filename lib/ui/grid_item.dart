@@ -16,19 +16,23 @@ class _GridItemState extends State<GridItem> with TickerProviderStateMixin{
   AnimationController colorAnimationController;
 
   initState(){
-    colorAnimationController = AnimationController(duration: const Duration(milliseconds: 700), vsync: this);
+    colorAnimationController = AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
     colorAnimation = Tween(begin: 1.0, end: 0.0).animate(colorAnimationController);
     super.initState();
   }
 
+  dispose(){
+    colorAnimationController.dispose();
+    super.dispose();
+  }
+
   build(context) {
     var image;
-    if(widget.url != null){
-      image = Image.network(widget.url).image;
-      image.resolve(ImageConfiguration()).addListener((imageInfo, synchronousCall){
-        colorAnimationController.forward();
-      });
-    }
+    image = Image.network(widget.url).image ?? AssetImage("assets/error.png");
+//    image.resolve(ImageConfiguration()).addListener((imageInfo, synchronousCall){
+//      colorAnimationController.forward();
+//    });
+    
     return AnimatedBuilder(
         animation: colorAnimation,
         builder: (context,_){
@@ -39,7 +43,7 @@ class _GridItemState extends State<GridItem> with TickerProviderStateMixin{
                   image: DecorationImage(
                     image: image,
                     colorFilter: ColorFilter.mode(
-                        Colors.black54.withOpacity(colorAnimation.value),
+                        Colors.black54,
                         BlendMode.hardLight
                     ),
                     fit: BoxFit.cover,
@@ -54,11 +58,6 @@ class _GridItemState extends State<GridItem> with TickerProviderStateMixin{
             },
           );
         });
-  }
-
-  dispose(){
-    colorAnimationController.dispose();
-    super.dispose();
   }
 
 }
