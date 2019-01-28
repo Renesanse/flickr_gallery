@@ -4,7 +4,8 @@ import 'dart:convert';
 class FlickrAPIProvider {
   getLinks(page) async {
     var answer = await get("https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&"
-        "api_key=76a404d8ea0a32808195795c325365b8&"
+        "api_key=9ad3a7101e55bd6bf3a5612629b9e2cc&"
+        "per_page=100&"
         "page=$page&"
         "format=json&"
         "nojsoncallback=1");

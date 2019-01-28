@@ -27,6 +27,7 @@ class CustomStreamBuilder{
                   if(num / checkNumber == 1.0){
                     checkNumber += 99;
                     currentPage++;
+                    if(currentPage == 11) currentPage = 1;
                     bloc.fetchAllImages(currentPage);
                   }
               },

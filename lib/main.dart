@@ -13,9 +13,6 @@ class FlickrGallery extends StatefulWidget {
 
 class _FlickrGalleryState extends State<FlickrGallery>{
 
-  var currentPage = 1;
-  var checknumber = 99;
-
   build(context){
     return MaterialApp(
       theme: ThemeData.dark(),

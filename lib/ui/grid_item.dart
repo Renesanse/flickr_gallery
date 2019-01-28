@@ -29,26 +29,29 @@ class _GridItemState extends State<GridItem> with TickerProviderStateMixin{
   build(context) {
     var image;
     image = Image.network(widget.url).image ?? AssetImage("assets/error.png");
-//    image.resolve(ImageConfiguration()).addListener((imageInfo, synchronousCall){
-//      colorAnimationController.forward();
-//    });
+    image.resolve(ImageConfiguration()).addListener((imageInfo, synchronousCall){
+      colorAnimationController.forward();
+    });
     
     return AnimatedBuilder(
         animation: colorAnimation,
         builder: (context,_){
           return GestureDetector(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.black54,
-                  image: DecorationImage(
-                    image: image,
-                    colorFilter: ColorFilter.mode(
-                        Colors.black54,
-                        BlendMode.hardLight
-                    ),
-                    fit: BoxFit.cover,
-                  )
-              ),
+            child: Hero(
+                tag: "${widget.url}",
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.black54,
+                      image: DecorationImage(
+                        image: image,
+                        colorFilter: ColorFilter.mode(
+                            Colors.black54.withOpacity(colorAnimation.value),
+                            BlendMode.hardLight
+                        ),
+                        fit: BoxFit.cover,
+                      )
+                  ),
+                )
             ),
             onTap: (){
               Navigator.push(
@@ -59,5 +62,4 @@ class _GridItemState extends State<GridItem> with TickerProviderStateMixin{
           );
         });
   }
-
 }

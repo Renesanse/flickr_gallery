@@ -7,14 +7,10 @@ class FullScreen extends StatelessWidget {
   FullScreen(this.url);
 
   build(context) {
-    return Container(
-        child: Stack(
-          children: <Widget>[
-            PhotoView(
-              imageProvider: Image.network(url).image,
-            ),
-          ],
-        )
+    return PhotoView(
+      heroTag: url,
+      enableRotation: true,
+      imageProvider: Image.network(url).image,
     );
   }
 }
