@@ -8,8 +8,12 @@ class Bloc {
 
   fetchAllImages(page) async {
     _controllerImages.add(await _repository.getImages(page));
+    var st = Stream.periodic(Duration(minutes: 5));
+    st.listen((onData) async {
+      _repository.list.clear();
+      _controllerImages.add(await _repository.getImages(page));
+    });
   }
-
 }
 
 final bloc = Bloc();
