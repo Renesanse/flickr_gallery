@@ -23,7 +23,7 @@ class _FlickrGalleryState extends State<FlickrGallery>{
             forceElevated: true,
             title: Text("Flickr Gallery"),
           ),
-          CustomStreamBuilder(bloc).getBuilder()
+          CustomStreamBuilder(bloc)
         ],
       ),
     );

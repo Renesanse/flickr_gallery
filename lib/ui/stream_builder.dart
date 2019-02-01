@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'grid_item.dart';
 
-class CustomStreamBuilder{
+class CustomStreamBuilder extends StatelessWidget{
 
   var currentPage = 1;
   var checkNumber = 99;
@@ -9,7 +9,7 @@ class CustomStreamBuilder{
 
   CustomStreamBuilder(this.bloc);
 
-  getBuilder(){
+  build(context) {
     bloc.fetchAllImages(currentPage);
     return StreamBuilder(
       stream: bloc.images,
@@ -24,13 +24,13 @@ class CustomStreamBuilder{
                 return GridItem(snapshot.data[index]);
               },
                   semanticIndexCallback: (_,num){
-                  if(num / checkNumber == 1.0){
-                    checkNumber += 99;
-                    currentPage++;
-                    if(currentPage == 11) currentPage = 1;
-                    bloc.fetchAllImages(currentPage);
-                  }
-              },
+                    if(num / checkNumber == 1.0){
+                      checkNumber += 99;
+                      currentPage++;
+                      if(currentPage == 11) currentPage = 1;
+                      bloc.fetchAllImages(currentPage);
+                    }
+                  },
                   childCount: snapshot.data.length
               )
           );
